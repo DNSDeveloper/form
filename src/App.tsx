@@ -66,183 +66,137 @@ function App() {
   const checkedRawatJalan = () => {
     setRawatJalan(!rawatJalan);
   };
+
   return (
     <div className="App">
-      <div className="container">
-        <div className="row">
-          <div className="col-6">
-            <div className="mb-3">
-              <label htmlFor="nama" className="form-label">
-                Nama
-              </label>
-              <input type="text" className="form-control" id="nama" />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="No Card" className="form-label">
-                No Card
-              </label>
-              <input type="text" className="form-control" id="No Card" />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="Date Of Birth" className="form-label">
-                Date Of Birth
-              </label>
-              <input type="date" className="form-control" id="Date Of Birth" />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="Plan Remaining Limit" className="form-label">
-                Plan Remaining Limit
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="Plan Remaining Limit"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Kamar Tersedia</label>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  id="tersedia"
-                  onClick={checkedKamar}
-                  checked={kamar}
-                />
-                <label className="form-check-label" htmlFor="tersedia">
-                  Tersedia
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  onClick={checkedKamar}
-                  checked={!kamar}
-                  id="penuh"
-                />
-                <label className="form-check-label" htmlFor="penuh">
-                  Penuh
-                </label>
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Masuk Perawatan Melalui :</label>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  id="ugd"
-                  onClick={checkedUgd}
-                  checked={ugd}
-                />
-                <label className="form-check-label" htmlFor="ugd">
-                  UGD
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  onClick={checkedUgd}
-                  checked={!ugd}
-                  id="non-ugd"
-                />
-                <label className="form-check-label" htmlFor="non-ugd">
-                  Non UGD
-                </label>
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="kelas-kamar" className="form-label">
-                Kelas Kamar
-              </label>
-              <input type="text" className="form-control" id="kelas-kamar" />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="No Rekam Medis" className="form-label">
-                No Rekam Medis
-              </label>
-              <input type="text" className="form-control" id="No Rekam Medis" />
-            </div>
+      <div className="container-fluid">
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title fs-4 text-center">
+              <span className="card-label">Benefit</span>
+            </h3>
           </div>
-
-          <div className="col-6">
-            <div className="mb-3">
-              <label htmlFor="No HP Penanggung Jawab" className="form-label">
-                No HP Penanggung Jawab
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="No HP Penanggung Jawab"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="Dokter Penanggung Jawab" className="form-label">
-                Dokter Penanggung Jawab
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="Dokter Penanggung Jawab"
-              />
-            </div>
-
-            <div className="mb-3">
-              <div className="row">
-                <div className="col">
-                  <label htmlFor="Nama Petugas" className="form-label">
-                    Nama Petugas
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="Nama Petugas"
-                  />
-                </div>
-                /
-                <div className="col">
-                  <label htmlFor="Ext" className="form-label">
-                    Ext
-                  </label>
-                  <input type="text" className="form-control" id="Ext" />
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="Diagnosa" className="form-label">
-                Diagnosa
-              </label>
-              <input type="text" className="form-control" id="Diagnosa" />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="No HP Penanggung Jawab" className="form-label">
-                Deskripsi Kondisi Pasien/Kecelakaan
-              </label>
-              <div className="form-floating">
-                <textarea
-                  className="form-control"
-                  placeholder="Leave a comment here"
-                  id="floatingTextarea"
-                ></textarea>
-                <label htmlFor="floatingTextarea">Deskripsi</label>
-              </div>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table className="table table-bordered border-primary align-middle gs-0 gy-1 ">
+                <thead>
+                  <tr className="fw-bold fs-6 text-muted text-center table-primary border-primary">
+                    <th className="">Code | Description </th>
+                    <th>Qty</th>
+                    <th>MaxLimit</th>
+                    <th>Available</th>
+                    <th>Incurred</th>
+                    <th>Approve</th>
+                    <th>ToPay</th>
+                    <th>ExPaid</th>
+                    <th>ExNotPaid</th>
+                    <th>Refund</th>
+                    <th>AsoApp</th>
+                    <th>PaidtoProv</th>
+                    <th>SMM</th>
+                    <th>Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-hover-dark text-hover-primary">
+                    <td>01 | Biaya Administrasi</td>
+                    <td></td>
+                    <td>999,999,999</td>
+                    <td>999,999,999</td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={100000}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={50000}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={50000}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={0}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={50000}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={0}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={0}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={100000}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        value={0}
+                      />
+                    </td>
+                    <td>
+                      <select name="" id="" className="form-control">
+                        <option value="">-- Please Select Remarks</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={4} className="text-end">
+                      Total
+                    </td>
+                    <td>100000</td>
+                    <td>50000</td>
+                    <td>50000</td>
+                    <td>0</td>
+                    <td>50000</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>100000</td>
+                    <td>0</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
 
+      <h3>
+        ===================================================================
+      </h3>
       <div className="container">
         <h4>
           <b>"SURAT KRONOLOGIS KEJADIAN"</b>
@@ -316,7 +270,6 @@ function App() {
 
             {kecelakaanLaluLintas ? (
               <>
-                {/* jika kecelakaan lalu lintas */}
                 <div className="mb-3">
                   <label className="form-label">Jenis kendaraan</label>
 
@@ -697,6 +650,187 @@ function App() {
         )}
       </div>
 
+      <h3>
+        ===================================================================
+      </h3>
+      <div className="container">
+        <div className="row">
+          <div className="col-6">
+            <div className="mb-3">
+              <label htmlFor="nama" className="form-label">
+                Nama
+              </label>
+              <input type="text" className="form-control" id="nama" />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="No Card" className="form-label">
+                No Card
+              </label>
+              <input type="text" className="form-control" id="No Card" />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="Date Of Birth" className="form-label">
+                Date Of Birth
+              </label>
+              <input type="date" className="form-control" id="Date Of Birth" />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="Plan Remaining Limit" className="form-label">
+                Plan Remaining Limit
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="Plan Remaining Limit"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Kamar Tersedia</label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  id="tersedia"
+                  onClick={checkedKamar}
+                  checked={kamar}
+                />
+                <label className="form-check-label" htmlFor="tersedia">
+                  Tersedia
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  onClick={checkedKamar}
+                  checked={!kamar}
+                  id="penuh"
+                />
+                <label className="form-check-label" htmlFor="penuh">
+                  Penuh
+                </label>
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Masuk Perawatan Melalui :</label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  id="ugd"
+                  onClick={checkedUgd}
+                  checked={ugd}
+                />
+                <label className="form-check-label" htmlFor="ugd">
+                  UGD
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  onClick={checkedUgd}
+                  checked={!ugd}
+                  id="non-ugd"
+                />
+                <label className="form-check-label" htmlFor="non-ugd">
+                  Non UGD
+                </label>
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="kelas-kamar" className="form-label">
+                Kelas Kamar
+              </label>
+              <input type="text" className="form-control" id="kelas-kamar" />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="No Rekam Medis" className="form-label">
+                No Rekam Medis
+              </label>
+              <input type="text" className="form-control" id="No Rekam Medis" />
+            </div>
+          </div>
+
+          <div className="col-6">
+            <div className="mb-3">
+              <label htmlFor="No HP Penanggung Jawab" className="form-label">
+                No HP Penanggung Jawab
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="No HP Penanggung Jawab"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="Dokter Penanggung Jawab" className="form-label">
+                Dokter Penanggung Jawab
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="Dokter Penanggung Jawab"
+              />
+            </div>
+
+            <div className="mb-3">
+              <div className="row">
+                <div className="col">
+                  <label htmlFor="Nama Petugas" className="form-label">
+                    Nama Petugas
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="Nama Petugas"
+                  />
+                </div>
+                /
+                <div className="col">
+                  <label htmlFor="Ext" className="form-label">
+                    Ext
+                  </label>
+                  <input type="text" className="form-control" id="Ext" />
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="Diagnosa" className="form-label">
+                Diagnosa
+              </label>
+              <input type="text" className="form-control" id="Diagnosa" />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="No HP Penanggung Jawab" className="form-label">
+                Deskripsi Kondisi Pasien/Kecelakaan
+              </label>
+              <div className="form-floating">
+                <textarea
+                  className="form-control"
+                  placeholder="Leave a comment here"
+                  id="floatingTextarea"
+                ></textarea>
+                <label htmlFor="floatingTextarea">Deskripsi</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>
+        ===================================================================
+      </h3>
       <div className="container">
         <h4>"ADMISSION REPORT NON PEMBEDAHAN"</h4>
         <div className="mb-3">
