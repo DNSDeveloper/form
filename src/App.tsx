@@ -67,6 +67,198 @@ function App() {
     setRawatJalan(!rawatJalan);
   };
 
+  const questionDailyMonitoring = [
+    {
+      question: "  1. Instruksi",
+      answer: "",
+    },
+    {
+      question: "2. Notes / Keterangan",
+      answer: "",
+    },
+    {
+      question: "3. Nama Ruang Perawatan",
+      answer: "",
+    },
+    {
+      question: "4. Kelas Perawatan",
+      answer: "",
+    },
+    {
+      question: "5. Informasi Kamar Perawatan (Naik APS/penuh/toleransi SK)",
+      answer: "",
+    },
+    {
+      question: "6. Harga Kamar Perawatan",
+      answer: "",
+    },
+    {
+      question: "7. Harga Kamar Perawatan Terdekat dari Hak Kamar Ditempati",
+      answer: "",
+    },
+    {
+      question: "8. AL, SPR, GL, CL,Persetujuan tindakan, DL",
+      answer: "",
+    },
+    {
+      question: "9. Indemnity Form",
+      answer: "",
+    },
+    {
+      question: "10. Perkiraan Biaya",
+      answer: "",
+    },
+    {
+      question: "11. Dr. yang merawat / dokter DPJP",
+      answer: "",
+    },
+    {
+      question: "12. Dokter rawat bersama",
+      answer: "",
+    },
+    {
+      question: "13. Dokter Konsulen",
+      answer: "",
+    },
+    {
+      question: "14. Petugas RS (R. Perawatan), No Telp / HP Kontak",
+      answer: "",
+    },
+    {
+      question: "15. Petugas RS (Admin ) No Telp / HP Kontak",
+      answer: "",
+    },
+    {
+      question: "16. Nama Penanggung Jawab Pasien",
+      answer: "",
+    },
+    {
+      question: "17. Alamat Penanggung Jawab Pasien",
+      answer: "",
+    },
+    {
+      question: "18. Nomor Telphone Penanggung Jawab Pasien",
+      answer: "",
+    },
+    {
+      question: "19. Hubungan Penanggung Jawab Pasien dengan Pasien",
+      answer: "",
+    },
+    {
+      question: "20. DIAGNOSA RIWAYAT PENYAKIT / RAWAT INAP TERDAHULU",
+      answer: "",
+    },
+    {
+      question: "21. Anamnesa Medis",
+      answer: "",
+    },
+    {
+      question: "22. Tanda Vital K/U",
+      answer: "",
+    },
+    {
+      question: "23. Tanda Vital Nadi",
+      answer: "",
+    },
+    {
+      question: "24. Tanda Vital Pernapasan",
+      answer: "",
+    },
+    {
+      question: "25. Tanda Vital Suhu Tubuh",
+      answer: "",
+    },
+    {
+      question: "26. Tanda Vital Cor / Pumo",
+      answer: "",
+    },
+    {
+      question: "27. Pemeriksaan Penunjang RADIOLOGI",
+      answer: "",
+    },
+    {
+      question:
+        "28. Pemeriksaan Fisik (Abdomen, Tumor/kelainan kulit : regio, ukuran ?)",
+      answer: "",
+    },
+    {
+      question: "29. Pemeriksaan Penunjang Laboratorium & PATOLOGI ANATOMI",
+      answer: "",
+    },
+    {
+      question: "30. Diagnosa Primer",
+      answer: "",
+    },
+    {
+      question: "31. Diagnosa Sekunder",
+      answer: "",
+    },
+    {
+      question: "32. Diagnosa Ketiga",
+      answer: "",
+    },
+    {
+      question: "33. Theraphy / pengobatan",
+      answer: "",
+    },
+    {
+      question: "34. Rencana Treatment / Tindakan",
+      answer: "",
+    },
+    {
+      question: "35. Jenis / Nama Operasi",
+      answer: "",
+    },
+    {
+      question: "36. Laporan Operasi",
+      answer: "",
+    },
+    {
+      question: "37. Kode ICD9-CM Rencana Treatment / Tindakan",
+      answer: "",
+    },
+    {
+      question: "38. Kode ICD9-CM Jenis / Nama Operasi",
+      answer: "",
+    },
+    {
+      question: "39. Pemeriksaan Penunjang Medis",
+      answer: "",
+    },
+    {
+      question: "40. Indikasi Rawat Inap (Bila tidak kuat investigasi ke dr.)",
+      answer: "",
+    },
+    {
+      question: "41. Nomor Kartu BPJS",
+      answer: "",
+    },
+    {
+      question: "42. Nomor SEP Rawat Inap",
+      answer: "",
+    },
+    {
+      question: "43. Asal Rujukan Rawat Inap",
+      answer: "",
+    },
+    {
+      question: "44. Dokter yang merujuk",
+      answer: "",
+    },
+    {
+      question: "45. Alasan dirujuk",
+      answer: "",
+    },
+    {
+      question: "46. Jaminan Asuransi lain",
+      answer: "",
+    },
+    {
+      question: "47. Nama & jumlah Alat Bantu (Kruk, Tongkat, Korset, dll)",
+      answer: "",
+    },
+  ];
+
   return (
     <div className="App">
       <div className="container-fluid">
