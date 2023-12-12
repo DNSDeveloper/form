@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FocusEvent, useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -118,6 +118,53 @@ function App() {
     },
   ];
 
+  const [incurred,setIncurred] = useState('');
+  const [approve,setApprove] = useState('');
+  const [toPay, settoPay] = useState('');
+
+  const incurredValues = (e: ChangeEvent<HTMLInputElement>) :void => {
+    const inc = e.target.value;
+    // regex untuk hanya angka aja
+    if(/^[0-9]+$/.test(inc)){
+      setIncurred(inc)
+    }
+  }
+  const handleBlurIncurred = (e:FocusEvent<HTMLInputElement>) : void => {
+    const inc = e.target.value;
+    if(approve === '0' || approve ==='') {
+      setApprove(inc)
+    } else {
+      handleToPay(incurred, approve);
+    }
+  }
+
+  const handleBlurApprove = (e:FocusEvent<HTMLInputElement>) : void => {
+    const appr = e.target.value;
+    handleToPay(incurred, appr);
+  }
+  const approveValues = (e:ChangeEvent<HTMLInputElement>) : void => {
+    const appr = e.target.value;
+    // regex untuk hanya angka aja
+    if(/^[0-9]+$/.test(appr) ) {
+      setApprove(appr)
+      if(appr > incurred) {
+       return;
+      }
+    }
+  }
+  const handleToPay = (incurredValues: string, approveValues: string) => {
+    const incurredNumber = parseInt(incurredValues);
+    const approveNumber = parseInt(approveValues);
+    if (!isNaN(incurredNumber) && !isNaN(approveNumber)) {
+      const result = incurredNumber - approveNumber;
+      console.log(toPay);
+      settoPay(result.toString());
+    } else {
+      settoPay('0');
+    }
+  }
+
+
   return (
     <div className="App">
       <div className="container-fluid">
@@ -158,63 +205,77 @@ function App() {
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={100000}
+                        placeholder="0"
+                        onChange={incurredValues}
+                        onBlur={handleBlurIncurred}
+                        value={incurred}
+                        pattern="[0-9]+"
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={50000}
+                        placeholder="0"
+                        onChange={approveValues}
+                        onBlur={handleBlurApprove}
+                        pattern="[0-9]+"
+                        value={approve}
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={50000}
+                        placeholder="0"
+                        value={toPay}
+                        readOnly
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={0}
+                        placeholder="0"
+                        value={toPay}
+                        readOnly                      
+                        />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control form-control-sm"
+                        type="text"
+                        // // onChange={onchangeExNotpaid}
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={50000}
+                        // // onChange={onchangeRefund}
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={0}
+                        // // onChange={onchangeAsoApp}
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={0}
+                        readOnly
+                        value={approve}                        
+                        
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        value={100000}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        className="form-control form-control-sm"
-                        type="text"
-                        value={0}
+                        // onChange={onchangeSMM}
                       />
                     </td>
                     <td>
@@ -227,14 +288,14 @@ function App() {
                     <td colSpan={4} className="text-end">
                       Total
                     </td>
-                    <td>100000</td>
-                    <td>50000</td>
-                    <td>50000</td>
+                    <td>{incurred}</td>
+                    <td>{approve}</td>
+                    <td>{toPay === '' ? '0' : toPay}</td>
+                    <td>{toPay === '' ? '0' : toPay}</td>
                     <td>0</td>
-                    <td>50000</td>
                     <td>0</td>
                     <td>0</td>
-                    <td>100000</td>
+                    <td>{approve}</td>
                     <td>0</td>
                     <td></td>
                   </tr>
