@@ -118,56 +118,118 @@ function App() {
     },
   ];
 
-  const [incurred,setIncurred] = useState('');
-  const [approve,setApprove] = useState('');
-  const [toPay, settoPay] = useState('');
+  // const [incurred,setIncurred] = useState('');
+  // const [approve,setApprove] = useState('');
+  // const [toPay, settoPay] = useState('');
 
-  const incurredValues = (e: ChangeEvent<HTMLInputElement>) :void => {
-    const inc = e.target.value;
-    // regex untuk hanya angka aja
-    if(/^[0-9]+$/.test(inc)){
-      setIncurred(inc)
-    }
-  }
-  const handleBlurIncurred = (e:FocusEvent<HTMLInputElement>) : void => {
-    const inc = e.target.value;
-    if(approve === '0' || approve ==='') {
-      setApprove(inc)
-    } else {
-      handleToPay(incurred, approve);
-    }
-  }
+  // const incurredValues = (e: ChangeEvent<HTMLInputElement>) :void => {
+  //   const inc = e.target.value;
+  //   // regex untuk hanya angka aja
+  //   if(/^[0-9]+$/.test(inc)){
+  //     setIncurred(inc)
+  //   }
+  // }
+  // const handleBlurIncurred = (e:FocusEvent<HTMLInputElement>) : void => {
+  //   const inc = e.target.value;
+  //   if(approve === '0' || approve ==='') {
+  //     setApprove(inc)
+  //   } else {
+  //     handleToPay(incurred, approve);
+  //   }
+  // }
 
-  const handleBlurApprove = (e:FocusEvent<HTMLInputElement>) : void => {
-    const appr = e.target.value;
-    handleToPay(incurred, appr);
-  }
-  const approveValues = (e:ChangeEvent<HTMLInputElement>) : void => {
-    const appr = e.target.value;
-    // regex untuk hanya angka aja
-    if(/^[0-9]+$/.test(appr) ) {
-      setApprove(appr)
-      if(appr > incurred) {
-       return;
-      }
-    }
-  }
-  const handleToPay = (incurredValues: string, approveValues: string) => {
-    const incurredNumber = parseInt(incurredValues);
-    const approveNumber = parseInt(approveValues);
-    if (!isNaN(incurredNumber) && !isNaN(approveNumber)) {
-      const result = incurredNumber - approveNumber;
-      console.log(toPay);
-      settoPay(result.toString());
-    } else {
-      settoPay('0');
-    }
-  }
+  // const handleBlurApprove = (e:FocusEvent<HTMLInputElement>) : void => {
+  //   const appr = e.target.value;
+  //   handleToPay(incurred, appr);
+  // }
+  // const approveValues = (e:ChangeEvent<HTMLInputElement>) : void => {
+  //   const appr = e.target.value;
+  //   // regex untuk hanya angka aja
+  //   if(/^[0-9]+$/.test(appr) ) {
+  //     setApprove(appr)
+  //     if(appr > incurred) {
+  //      return;
+  //     }
+  //   }
+  // }
+  // const handleToPay = (incurredValues: string, approveValues: string) => {
+  //   const incurredNumber = parseInt(incurredValues);
+  //   const approveNumber = parseInt(approveValues);
+  //   if (!isNaN(incurredNumber) && !isNaN(approveNumber)) {
+  //     const result = incurredNumber - approveNumber;
+  //     console.log(toPay);
+  //     settoPay(result.toString());
+  //   } else {
+  //     settoPay('0');
+  //   }
+  // }
 
+  const [admission, setAdmission] = useState<
+    "maternity" | "pembedahan" | "nonpembedahan"
+  >("nonpembedahan");
+  const selectAdmission = (
+    adm: "maternity" | "pembedahan" | "nonpembedahan"
+  ) => {
+    setAdmission(adm);
+  };
 
+  const [jenisTindakan, setJenisTindakan] = useState(true);
+  const selectTindakan = () => {
+    setJenisTindakan(!jenisTindakan);
+  };
+
+  const [jenisAnastesi, setJenisAnastesi] = useState<
+    "umum" | "spinal" | "local"
+  >("umum");
+  const selectAnastesi = (anastesi: "umum" | "spinal" | "local") => {
+    setJenisAnastesi(anastesi);
+  };
+
+  const [kategoriPembedahan, setKategoriPembedahan] = useState<
+    "kompleks" | "major" | "intermediate" | "minor"
+  >("kompleks");
+  const selectKategori = (
+    kategori: "kompleks" | "major" | "intermediate" | "minor"
+  ) => {
+    setKategoriPembedahan(kategori);
+  };
+
+  const [jenisKeluhan, setJenisKeluhan] = useState<
+    "komplikasiKehamilan" | "persalinan" | "komplikasiPersalinan" | "aborsi"
+  >("komplikasiKehamilan");
+  const selectKeluhan = (
+    keluhan:
+      | "komplikasiKehamilan"
+      | "persalinan"
+      | "komplikasiPersalinan"
+      | "aborsi"
+  ) => {
+    setJenisKeluhan(keluhan);
+  };
+
+  const [jenisPersalinan, setJenisPersalinan] = useState<
+    "spontan" | "ve" | "forceps" | "sc" | "eraacs"
+  >("spontan");
+  const selectJenisPersalinan = (
+    persalinan: "spontan" | "ve" | "forceps" | "sc" | "eraacs"
+  ) => {
+    setJenisPersalinan(persalinan);
+  };
+
+  const [statusTindakanSC, setStatusTindakanSC] = useState(true);
+  const checkedStatusTindakan = () => {
+    setStatusTindakanSC(!statusTindakanSC);
+  };
+
+  const [anastesiMaternity, setAnastesiMaternity] = useState<
+    "ILA" | "umum" | "spinal"
+  >("ILA");
+  const selectAnastesiMaternity = (anastesi: "ILA" | "umum" | "spinal") => {
+    setAnastesiMaternity(anastesi);
+  };
   return (
     <div className="App">
-      <div className="container-fluid">
+      {/* <div className="container-fluid">
         <div className="card">
           <div className="card-header">
             <h3 className="card-title fs-4 text-center">
@@ -304,7 +366,7 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <h3>
         ===================================================================
@@ -944,7 +1006,52 @@ function App() {
         ===================================================================
       </h3>
       <div className="container">
-        <h4>"ADMISSION REPORT NON PEMBEDAHAN"</h4>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            id="nonpembedahan"
+            type="radio"
+            onChange={() => selectAdmission("nonpembedahan")}
+            checked={admission === "nonpembedahan"}
+          />
+          <label className="form-check-label" htmlFor="nonpembedahan">
+            NON PEMBEDAHAN
+          </label>
+        </div>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            id="pembedahan"
+            type="radio"
+            onChange={() => selectAdmission("pembedahan")}
+            checked={admission === "pembedahan"}
+          />
+          <label className="form-check-label" htmlFor="pembedahan">
+            PEMBEDAHAN
+          </label>
+        </div>
+
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            id="maternity"
+            type="radio"
+            onChange={() => selectAdmission("maternity")}
+            checked={admission === "maternity"}
+          />
+          <label className="form-check-label" htmlFor="maternity">
+            MATERNITY
+          </label>
+        </div>
+
+        <h4>
+          ADMISSION REPORT{" "}
+          {admission === "nonpembedahan"
+            ? "NON PEMBEDAHAN"
+            : admission === "pembedahan"
+            ? "PEMBEDAHAN"
+            : "MATERNITY"}{" "}
+        </h4>
         <div className="mb-3">
           <label className="form-label">Dokter Yang Merawat</label>
           <input className="form-control" type="text" />
@@ -956,22 +1063,60 @@ function App() {
               <label className="form-label">Diagnosa Utama</label>
               <input className="form-control" type="text" />
             </div>
+            {admission === "maternity" ? (
+              <div className="row">
+                <div className="col">
+                  <label className="form-label">G</label>
+                  <input className="form-control" type="text" />
+                </div>
+                <div className="col">
+                  <label className="form-label">P</label>
+                  <input className="form-control" type="text" />
+                </div>
+                <div className="col">
+                  <label className="form-label">A</label>
+                  <input className="form-control" type="text" />
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="col-6">
             <div className="mb-3">
               <label className="form-label">Diagnosa Penyerta</label>
               <input className="form-control" type="text" />
             </div>
+            {admission === "maternity" ? (
+              <div className="row">
+                <div className="col">
+                  <label className="form-label">Hamil</label>
+                  <input
+                    className="form-control"
+                    placeholder="Minggu"
+                    type="text"
+                  />
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="mb-3">
           <label className="form-label">Etiologi Diagnosa</label>
           <input className="form-control" type="text" />
         </div>
-        <div className="mb-3">
-          <label>Kronologi Kejadian</label>
-          <textarea className="form-control" name="" id=""></textarea>
-        </div>
+        {admission !== "maternity" ? (
+          <>
+            <div className="mb-3">
+              <label>Kronologi Kejadian</label>
+              <textarea className="form-control" name="" id=""></textarea>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
         <div className="mb-3">
           <label className="form-label">Keluhan yang dirasakan</label>
           <input className="form-control" type="text" />
@@ -984,14 +1129,88 @@ function App() {
           <label className="form-label">
             Apakah keluhann yang sama pernah dirasakan sebelumnya
           </label>
+          <input className="form-control" type="text" />
         </div>
-        <input className="form-control" type="text" />
+        {admission === "maternity" ? (
+          <>
+            <div className="mb-3">
+              <label className="form-label">
+                Apakah Keluhan saat ini berhubungan dengan :
+              </label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="komplikasikehamilan"
+                  type="radio"
+                  onChange={() => selectKeluhan("komplikasiKehamilan")}
+                  checked={jenisKeluhan === "komplikasiKehamilan"}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="komplikasikehamilan"
+                >
+                  Komplikasi Kehamilan
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="persalinan"
+                  type="radio"
+                  onChange={() => selectKeluhan("persalinan")}
+                  checked={jenisKeluhan === "persalinan"}
+                />
+                <label className="form-check-label" htmlFor="persalinan">
+                  Persalinan
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="komplikasipersalinan"
+                  type="radio"
+                  onChange={() => selectKeluhan("komplikasiPersalinan")}
+                  checked={jenisKeluhan === "komplikasiPersalinan"}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="komplikasipersalinan"
+                >
+                  Komplikasi Persalinan
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="aborsi"
+                  type="radio"
+                  onChange={() => selectKeluhan("aborsi")}
+                  checked={jenisKeluhan === "aborsi"}
+                />
+                <label className="form-check-label" htmlFor="aborsi">
+                  Aborsi
+                </label>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
         <div className="mb-3">
           <label className="form-label">Hasil Anamnnesa</label>
           <input className="form-control" type="text" />
         </div>
 
-        <h6>pemeriksaan fisik</h6>
+        {admission === "maternity" ? (
+          <div className="mb-3">
+            <label className="form-label">Indikasi Rawat Inap</label>
+            <input className="form-control" type="text" />
+          </div>
+        ) : (
+          ""
+        )}
+
+        <h6>Pemeriksaan Fisik</h6>
 
         <div className="mb-3">
           <div className="row">
@@ -1066,7 +1285,6 @@ function App() {
             </div>
           </div>
         </div>
-
         <div className="mb-3">
           <label>Hasil Test penunjang yang telah dilakukan</label>
           <textarea className="form-control" name="" id=""></textarea>
@@ -1081,6 +1299,305 @@ function App() {
           </label>
           <input className="form-control" type="text" />
         </div>
+
+        {admission === "maternity" ? (
+          <div className="mb-3">
+            <label className="form-label">Jenis Persalinan</label>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                id="spontan"
+                type="radio"
+                onChange={() => selectJenisPersalinan("spontan")}
+                checked={jenisPersalinan === "spontan"}
+              />
+              <label className="form-check-label" htmlFor="spontan">
+                Spontan
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                id="ve"
+                type="radio"
+                onChange={() => selectJenisPersalinan("ve")}
+                checked={jenisPersalinan === "ve"}
+              />
+              <label className="form-check-label" htmlFor="ve">
+                Spontan dengan VE
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                id="forceps"
+                type="radio"
+                onChange={() => selectJenisPersalinan("forceps")}
+                checked={jenisPersalinan === "forceps"}
+              />
+              <label className="form-check-label" htmlFor="forceps">
+                Spontan dengan forceps
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                id="sectio"
+                type="radio"
+                onChange={() => selectJenisPersalinan("sc")}
+                checked={jenisPersalinan === "sc"}
+              />
+              <label className="form-check-label" htmlFor="sectio">
+                Sectio Caesari (SC)
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                id="eraacs"
+                type="radio"
+                onChange={() => selectJenisPersalinan("eraacs")}
+                checked={jenisPersalinan === "eraacs"}
+              />
+              <label className="form-check-label" htmlFor="eraacs">
+                Sectio Caesari (SC) dengan eraacs
+              </label>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {admission === "maternity" &&
+        (jenisPersalinan === "sc" || jenisPersalinan === "eraacs") ? (
+          <>
+            <div className="mb-3">
+              <label className="form-label">
+                Indikasi Jika Persalinan dengan SC
+              </label>
+              <textarea name="" id="" className="form-control"></textarea>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Status Tindakan SC</label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="elektif-sc"
+                  type="radio"
+                  onChange={checkedStatusTindakan}
+                  checked={statusTindakanSC}
+                />
+                <label className="form-check-label" htmlFor="elektif-sc">
+                  Elektif
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="cito-sc"
+                  type="radio"
+                  onChange={checkedStatusTindakan}
+                  checked={!statusTindakanSC}
+                />
+                <label className="form-check-label" htmlFor="cito-sc">
+                  Cito
+                </label>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
+        {admission === "maternity" ? (
+          <>
+            <div className="mb-3">
+              <label className="form-label">Tanggal Persalinan</label>
+              <input className="form-control" type="date" />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Anastesi yang digunakan</label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="ILA"
+                  type="radio"
+                  onChange={() => selectAnastesiMaternity("ILA")}
+                  checked={anastesiMaternity === "ILA"}
+                />
+                <label className="form-check-label" htmlFor="ILA">
+                  ILA
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="Umum/General Anastesi"
+                  type="radio"
+                  onChange={() => selectAnastesiMaternity("umum")}
+                  checked={anastesiMaternity === "umum"}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="Umum/General Anastesi"
+                >
+                  Umum/General Anastesi
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  id="Spinal-MATERNITY"
+                  type="radio"
+                  onChange={() => selectAnastesiMaternity("spinal")}
+                  checked={anastesiMaternity === "spinal"}
+                />
+                <label className="form-check-label" htmlFor="Spinal-MATERNITY">
+                  Spinal
+                </label>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
+        {admission === "pembedahan" ? (
+          <>
+            <div className="mb-3">
+              <label className="form-label">
+                Rencana Tindakan yang akan dilakukan
+              </label>
+              <input className="form-control" type="text" />
+            </div>
+            <h6>Informasi Detil Rencana Tindakan</h6>
+            <div className="mb-3">
+              <label className="form-label">Nama Tindakan</label>
+              <input className="form-control" type="text" />
+            </div>
+            <div className="row">
+              <div className="col-4">
+                Jenis Tindakan
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="cito"
+                    type="radio"
+                    onChange={selectTindakan}
+                    checked={jenisTindakan}
+                  />
+                  <label className="form-check-label" htmlFor="cito">
+                    Cito
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="terencana"
+                    type="radio"
+                    onChange={selectTindakan}
+                    checked={!jenisTindakan}
+                  />
+                  <label className="form-check-label" htmlFor="terencana">
+                    Terencana/Elektif
+                  </label>
+                </div>
+              </div>
+              <div className="col-4">
+                Jenis Anastesi
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="umum"
+                    type="radio"
+                    onChange={() => selectAnastesi("umum")}
+                    checked={jenisAnastesi === "umum"}
+                  />
+                  <label className="form-check-label" htmlFor="umum">
+                    Umum/General Anastesi
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="spinal"
+                    type="radio"
+                    onChange={() => selectAnastesi("spinal")}
+                    checked={jenisAnastesi === "spinal"}
+                  />
+                  <label className="form-check-label" htmlFor="spinal">
+                    Spinal
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="local"
+                    type="radio"
+                    onChange={() => selectAnastesi("local")}
+                    checked={jenisAnastesi === "local"}
+                  />
+                  <label className="form-check-label" htmlFor="local">
+                    Local
+                  </label>
+                </div>
+              </div>
+              <div className="col-4">
+                Kategori Pembedahan
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="kompleks"
+                    type="radio"
+                    onChange={() => selectKategori("kompleks")}
+                    checked={kategoriPembedahan === "kompleks"}
+                  />
+                  <label className="form-check-label" htmlFor="kompleks">
+                    Kompleks
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="major"
+                    type="radio"
+                    onChange={() => selectKategori("major")}
+                    checked={kategoriPembedahan === "major"}
+                  />
+                  <label className="form-check-label" htmlFor="major">
+                    Major
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="intermediate"
+                    type="radio"
+                    onChange={() => selectKategori("intermediate")}
+                    checked={kategoriPembedahan === "intermediate"}
+                  />
+                  <label className="form-check-label" htmlFor="intermediate">
+                    Intermediate
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    id="minor"
+                    type="radio"
+                    onChange={() => selectKategori("minor")}
+                    checked={kategoriPembedahan === "minor"}
+                  />
+                  <label className="form-check-label" htmlFor="minor">
+                    Minor/ODS
+                  </label>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
         <div className="mb-3">
           <label className="form-label">Perkiraan Lama Rawat Inap</label>
           <input className="form-control" type="text" />
