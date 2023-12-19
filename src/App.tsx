@@ -118,52 +118,6 @@ function App() {
     },
   ];
 
-  // const [incurred,setIncurred] = useState('');
-  // const [approve,setApprove] = useState('');
-  // const [toPay, settoPay] = useState('');
-
-  // const incurredValues = (e: ChangeEvent<HTMLInputElement>) :void => {
-  //   const inc = e.target.value;
-  //   // regex untuk hanya angka aja
-  //   if(/^[0-9]+$/.test(inc)){
-  //     setIncurred(inc)
-  //   }
-  // }
-  // const handleBlurIncurred = (e:FocusEvent<HTMLInputElement>) : void => {
-  //   const inc = e.target.value;
-  //   if(approve === '0' || approve ==='') {
-  //     setApprove(inc)
-  //   } else {
-  //     handleToPay(incurred, approve);
-  //   }
-  // }
-
-  // const handleBlurApprove = (e:FocusEvent<HTMLInputElement>) : void => {
-  //   const appr = e.target.value;
-  //   handleToPay(incurred, appr);
-  // }
-  // const approveValues = (e:ChangeEvent<HTMLInputElement>) : void => {
-  //   const appr = e.target.value;
-  //   // regex untuk hanya angka aja
-  //   if(/^[0-9]+$/.test(appr) ) {
-  //     setApprove(appr)
-  //     if(appr > incurred) {
-  //      return;
-  //     }
-  //   }
-  // }
-  // const handleToPay = (incurredValues: string, approveValues: string) => {
-  //   const incurredNumber = parseInt(incurredValues);
-  //   const approveNumber = parseInt(approveValues);
-  //   if (!isNaN(incurredNumber) && !isNaN(approveNumber)) {
-  //     const result = incurredNumber - approveNumber;
-  //     console.log(toPay);
-  //     settoPay(result.toString());
-  //   } else {
-  //     settoPay('0');
-  //   }
-  // }
-
   const [admission, setAdmission] = useState<
     "maternity" | "pembedahan" | "nonpembedahan"
   >("nonpembedahan");
@@ -227,9 +181,129 @@ function App() {
   const selectAnastesiMaternity = (anastesi: "ILA" | "umum" | "spinal") => {
     setAnastesiMaternity(anastesi);
   };
+
+  const [incurred,setIncurred] = useState('');
+  const [approve,setApprove] = useState('');
+  const [toPay, settoPay] = useState('');
+  const [exPaid,setExPaid]= useState('');
+  const [refund,setRefund]= useState('');
+  const [exNotPaid,setExNotPaid]= useState('');
+  const [paidtoProv,setPaidtoProve]= useState('');
+
+  const incurredValues = (e: ChangeEvent<HTMLInputElement>) :void => {
+    const inc = e.target.value;
+    // regex untuk hanya angka aja
+    if(/^[0-9]+$/.test(inc)){
+      setIncurred(inc)
+    }
+  }
+  const handleBlurIncurred = (e:FocusEvent<HTMLInputElement>) : void => {
+    const inc = e.target.value;
+    if(approve === '0' || approve ==='') {
+      setApprove(inc)
+    } else {
+      handleToPay(incurred, approve);
+    }
+  }
+
+  const handleBlurApprove = (e:FocusEvent<HTMLInputElement>) : void => {
+    const appr = e.target.value;
+    handleToPay(incurred, appr);
+    // handlePaidtoProv()
+    // if(exPaid >= toPay) {
+    //   const result = parseInt(exPaid) - parseInt(toPay);
+    //   // setRefund(result.toString())
+    // } else {
+    //   setRefund('0')
+    // }
+  }
+  const approveValues = (e:ChangeEvent<HTMLInputElement>) : void => {
+    const appr = e.target.value;
+    // regex untuk hanya angka aja
+    if(/^[0-9]+$/.test(appr) ) {
+      setApprove(appr)
+    }
+  }
+  const handleToPay = (incurredValues: string, approveValues: string) => {
+    const incurredNumber = parseInt(incurredValues);
+    const approveNumber = parseInt(approveValues);
+    if (!isNaN(incurredNumber) && !isNaN(approveNumber)) {
+      const result = incurredNumber - approveNumber;
+      handleRefund(exPaid,result.toString())
+      settoPay(result.toString());
+      if(exPaid === '0' || exPaid === '') {
+        setExPaid(result.toString());
+      }
+    } else {
+      settoPay('0');
+    }
+  }
+
+  const handleBlurExpaid = (e:FocusEvent<HTMLInputElement>) : void => {
+    const valExPaid = e.target.value;
+    handleRefund(valExPaid,toPay)
+    handlePaidtoProv()
+  }
+
+  const handleExPaid = (e:ChangeEvent<HTMLInputElement>) : void => {
+    const valExPaid = e.target.value;
+    // regex untuk hanya angka aja
+    if(/^[0-9]+$/.test(valExPaid) ) {
+      setExPaid(valExPaid)
+    }
+  }
+
+  const handleExnotPaid = () => {
+    const exPaidVal = parseInt(exPaid);
+    const toPayVal = parseInt(toPay);
+
+    if(exPaidVal <= toPayVal) {
+      const result = toPayVal - exPaidVal;
+      setExNotPaid(result.toString());
+      setRefund('0')
+    } else {
+      // handleRefund(exPaidVal.toString(),toPayVal.toString())
+      setExNotPaid('0')
+    }
+  }
+
+  const handleRefund = (handleExPaid: string, handleToPay: string) => {
+    const exPaidNumber = parseInt(exPaid);
+    const toPayNumber = parseInt(toPay);
+
+    if(exPaidNumber >= toPayNumber) {
+      const resultRefund = exPaidNumber - toPayNumber;
+      setRefund(resultRefund.toString());
+      setExNotPaid('0')
+    } else {
+      handleExnotPaid()
+    }
+  }
+
+  const handlePaidtoProv = () => {
+    const exNotPaidVal = parseInt(exNotPaid)
+    const refundVal = parseInt(refund)
+    const approveVal = parseInt(approve)
+
+    if(exNotPaidVal > 0 && refundVal === 0) {
+      const resultExnotPaid = (approveVal + exNotPaidVal);
+      setPaidtoProve(resultExnotPaid.toString())
+      setRefund('0')
+      console.log('exnotpaid:',resultExnotPaid)
+    } else if (refundVal > 0 && exNotPaidVal === 0) {
+      const resultRefund = approveVal - refundVal;
+      setExNotPaid('0')
+      console.log('refund')
+      setPaidtoProve(resultRefund.toString());
+    } else {
+      console.log('approve')
+      setPaidtoProve(approveVal.toString())
+    }
+  }
+
   return (
     <div className="App">
-      {/* <div className="container-fluid">
+      <div className="container-fluid">
         <div className="card">
           <div className="card-header">
             <h3 className="card-title fs-4 text-center">
@@ -299,22 +373,25 @@ function App() {
                         className="form-control form-control-sm"
                         type="text"
                         placeholder="0"
-                        value={toPay}
-                        readOnly                      
+                        value={exPaid}
+                        onChange={handleExPaid}
+                        onBlur={handleBlurExpaid}
                         />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        // // onChange={onchangeExNotpaid}
+                        value={exNotPaid}
+                        readOnly
                       />
                     </td>
                     <td>
                       <input
                         className="form-control form-control-sm"
                         type="text"
-                        // // onChange={onchangeRefund}
+                        value={refund}
+                        readOnly
                       />
                     </td>
                     <td>
@@ -329,8 +406,7 @@ function App() {
                         className="form-control form-control-sm"
                         type="text"
                         readOnly
-                        value={approve}                        
-                        
+                        value={paidtoProv}
                       />
                     </td>
                     <td>
@@ -353,11 +429,11 @@ function App() {
                     <td>{incurred}</td>
                     <td>{approve}</td>
                     <td>{toPay === '' ? '0' : toPay}</td>
-                    <td>{toPay === '' ? '0' : toPay}</td>
+                    <td>{exPaid}</td>
+                    <td>{exNotPaid}</td>
+                    <td>{refund}</td>
                     <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>{approve}</td>
+                    <td>{paidtoProv}</td>
                     <td>0</td>
                     <td></td>
                   </tr>
@@ -366,7 +442,7 @@ function App() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <h3>
         ===================================================================
