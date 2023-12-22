@@ -182,31 +182,59 @@ function App() {
     setAnastesiMaternity(anastesi);
   };
 
-  const [incurred,setIncurred] = useState('');
-  const [approve,setApprove] = useState('');
-  const [toPay, settoPay] = useState('');
-  const [exPaid,setExPaid]= useState('');
-  const [refund,setRefund]= useState('');
-  const [exNotPaid,setExNotPaid]= useState('');
-  const [paidtoProv,setPaidtoProve]= useState('');
+  const [menempatiKamar, setMenempatiKamar] = useState<
+    "hakKamar" | "aps" | "hakKamarPenuh" | "lainnya"
+  >("hakKamar");
+  const checkedMenempatiKamar = (
+    kamar: "hakKamar" | "aps" | "hakKamarPenuh" | "lainnya"
+  ) => {
+    setMenempatiKamar(kamar);
+  };
 
-  const incurredValues = (e: ChangeEvent<HTMLInputElement>) :void => {
+  const [isKartuIspc, setIskartuIspc] = useState(true);
+  const checkedIsKartuIspc = () => {
+    setIskartuIspc(!isKartuIspc);
+  };
+
+  const [isKartuIdentitas, setIsKartuIdentitas] = useState<
+    "e-ktp" | "sim" | "passport" | "kitas" | "kia" | "lainnya"
+  >("e-ktp");
+  const checkedIsKartuIdentitas = (
+    identitas: "e-ktp" | "sim" | "passport" | "kitas" | "kia" | "lainnya"
+  ) => {
+    setIsKartuIdentitas(identitas);
+  };
+
+  const [isAsuransi, setIsAsuransi] = useState(true);
+  const checkhedIsAsuransi = () => {
+    setIsAsuransi(!isAsuransi);
+  };
+
+  const [incurred, setIncurred] = useState("");
+  const [approve, setApprove] = useState("");
+  const [toPay, settoPay] = useState("");
+  const [exPaid, setExPaid] = useState("");
+  const [refund, setRefund] = useState("");
+  const [exNotPaid, setExNotPaid] = useState("");
+  const [paidtoProv, setPaidtoProve] = useState("");
+
+  const incurredValues = (e: ChangeEvent<HTMLInputElement>): void => {
     const inc = e.target.value;
     // regex untuk hanya angka aja
-    if(/^[0-9]+$/.test(inc)){
-      setIncurred(inc)
+    if (/^[0-9]+$/.test(inc)) {
+      setIncurred(inc);
     }
-  }
-  const handleBlurIncurred = (e:FocusEvent<HTMLInputElement>) : void => {
+  };
+  const handleBlurIncurred = (e: FocusEvent<HTMLInputElement>): void => {
     const inc = e.target.value;
-    if(approve === '0' || approve ==='') {
-      setApprove(inc)
+    if (approve === "0" || approve === "") {
+      setApprove(inc);
     } else {
       handleToPay(incurred, approve);
     }
-  }
+  };
 
-  const handleBlurApprove = (e:FocusEvent<HTMLInputElement>) : void => {
+  const handleBlurApprove = (e: FocusEvent<HTMLInputElement>): void => {
     const appr = e.target.value;
     handleToPay(incurred, appr);
     // handlePaidtoProv()
@@ -216,90 +244,90 @@ function App() {
     // } else {
     //   setRefund('0')
     // }
-  }
-  const approveValues = (e:ChangeEvent<HTMLInputElement>) : void => {
+  };
+  const approveValues = (e: ChangeEvent<HTMLInputElement>): void => {
     const appr = e.target.value;
     // regex untuk hanya angka aja
-    if(/^[0-9]+$/.test(appr) ) {
-      setApprove(appr)
+    if (/^[0-9]+$/.test(appr)) {
+      setApprove(appr);
     }
-  }
+  };
   const handleToPay = (incurredValues: string, approveValues: string) => {
     const incurredNumber = parseInt(incurredValues);
     const approveNumber = parseInt(approveValues);
     if (!isNaN(incurredNumber) && !isNaN(approveNumber)) {
       const result = incurredNumber - approveNumber;
-      handleRefund(exPaid,result.toString())
+      handleRefund(exPaid, result.toString());
       settoPay(result.toString());
-      if(exPaid === '0' || exPaid === '') {
+      if (exPaid === "0" || exPaid === "") {
         setExPaid(result.toString());
       }
     } else {
-      settoPay('0');
+      settoPay("0");
     }
-  }
+  };
 
-  const handleBlurExpaid = (e:FocusEvent<HTMLInputElement>) : void => {
+  const handleBlurExpaid = (e: FocusEvent<HTMLInputElement>): void => {
     const valExPaid = e.target.value;
-    handleRefund(valExPaid,toPay)
-    handlePaidtoProv()
-  }
+    handleRefund(valExPaid, toPay);
+    handlePaidtoProv();
+  };
 
-  const handleExPaid = (e:ChangeEvent<HTMLInputElement>) : void => {
+  const handleExPaid = (e: ChangeEvent<HTMLInputElement>): void => {
     const valExPaid = e.target.value;
     // regex untuk hanya angka aja
-    if(/^[0-9]+$/.test(valExPaid) ) {
-      setExPaid(valExPaid)
+    if (/^[0-9]+$/.test(valExPaid)) {
+      setExPaid(valExPaid);
     }
-  }
+  };
 
   const handleExnotPaid = () => {
     const exPaidVal = parseInt(exPaid);
     const toPayVal = parseInt(toPay);
 
-    if(exPaidVal <= toPayVal) {
+    if (exPaidVal <= toPayVal) {
       const result = toPayVal - exPaidVal;
       setExNotPaid(result.toString());
-      setRefund('0')
+      setRefund("0");
     } else {
       // handleRefund(exPaidVal.toString(),toPayVal.toString())
-      setExNotPaid('0')
+      setExNotPaid("0");
     }
-  }
+  };
 
   const handleRefund = (handleExPaid: string, handleToPay: string) => {
     const exPaidNumber = parseInt(exPaid);
     const toPayNumber = parseInt(toPay);
 
-    if(exPaidNumber >= toPayNumber) {
+    if (exPaidNumber >= toPayNumber) {
       const resultRefund = exPaidNumber - toPayNumber;
       setRefund(resultRefund.toString());
-      setExNotPaid('0')
+      setExNotPaid("0");
     } else {
-      handleExnotPaid()
+      handleExnotPaid();
     }
-  }
+  };
 
   const handlePaidtoProv = () => {
-    const exNotPaidVal = parseInt(exNotPaid)
-    const refundVal = parseInt(refund)
-    const approveVal = parseInt(approve)
+    const exNotPaidVal = parseInt(exNotPaid);
+    const refundVal = parseInt(refund);
+    const approveVal = parseInt(approve);
 
-    if(exNotPaidVal > 0 && refundVal === 0) {
-      const resultExnotPaid = (approveVal + exNotPaidVal);
-      setPaidtoProve(resultExnotPaid.toString())
-      setRefund('0')
-      console.log('exnotpaid:',resultExnotPaid)
+    if (exNotPaidVal > 0 && refundVal === 0) {
+      const resultExnotPaid = approveVal + exNotPaidVal;
+      setPaidtoProve(resultExnotPaid.toString());
+      setRefund("0");
+      console.log("exnotpaid:", resultExnotPaid);
     } else if (refundVal > 0 && exNotPaidVal === 0) {
       const resultRefund = approveVal - refundVal;
-      setExNotPaid('0')
-      console.log('refund')
+      setExNotPaid("0");
+      console.log("refund");
       setPaidtoProve(resultRefund.toString());
     } else {
-      console.log('approve')
-      setPaidtoProve(approveVal.toString())
+      console.log("approve");
+      setPaidtoProve(approveVal.toString());
     }
-  }
+  };
 
   return (
     <div className="App">
@@ -376,7 +404,7 @@ function App() {
                         value={exPaid}
                         onChange={handleExPaid}
                         onBlur={handleBlurExpaid}
-                        />
+                      />
                     </td>
                     <td>
                       <input
@@ -428,7 +456,7 @@ function App() {
                     </td>
                     <td>{incurred}</td>
                     <td>{approve}</td>
-                    <td>{toPay === '' ? '0' : toPay}</td>
+                    <td>{toPay === "" ? "0" : toPay}</td>
                     <td>{exPaid}</td>
                     <td>{exNotPaid}</td>
                     <td>{refund}</td>
@@ -440,6 +468,231 @@ function App() {
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>
+        ===================================================================
+      </h3>
+
+      <div className="container">
+        <h4>
+          <b>"SURAT PERNYATAAN KELAS KAMAR"</b>
+        </h4>
+
+        <div className="mb-3">
+          <label className="form-label">Nomor KTP/NIK</label>
+          <input type="text" className="form-control" />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">
+            Menempati kamar yang di tempati saat ini, karena : *Pilih salah satu
+          </label>
+
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="kecelakaan"
+              type="radio"
+              onChange={() => checkedMenempatiKamar("hakKamar")}
+              checked={menempatiKamar === "hakKamar"}
+            />
+            <label className="form-check-label" htmlFor="kecelakaan">
+              Kamar sesuai dengan hak kamar
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onChange={() => checkedMenempatiKamar("aps")}
+              checked={menempatiKamar === "aps"}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              Atas Permintaan Sendiri (APS)
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onChange={() => checkedMenempatiKamar("hakKamarPenuh")}
+              checked={menempatiKamar === "hakKamarPenuh"}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              Kamar yang sesuai dengan hak kamar penuh / Tidak tersedia
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onChange={() => checkedMenempatiKamar("lainnya")}
+              checked={menempatiKamar === "lainnya"}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              Lainnya
+            </label>
+            {menempatiKamar === "lainnya" ? (
+              <input type="text" className="form-control" />
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+
+        <div className="">
+          <label className="form-label">Informasi Pendukung</label>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">
+            Peserta membawa kartu Asuransi PT. International Services Pacific
+            Cross{" "}
+          </label>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onClick={checkedIsKartuIspc}
+              checked={isKartuIspc}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              YA
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onClick={checkedIsKartuIspc}
+              checked={!isKartuIspc}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              Tidak
+            </label>
+          </div>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Peserta membawa kartu identitas</label>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="e-ktp"
+              type="radio"
+              onChange={() => checkedIsKartuIdentitas("e-ktp")}
+              checked={isKartuIdentitas === "e-ktp"}
+            />
+            <label className="form-check-label" htmlFor="e-ktp">
+              E-KTP
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="sim"
+              type="radio"
+              onChange={() => checkedIsKartuIdentitas("sim")}
+              checked={isKartuIdentitas === "sim"}
+            />
+            <label className="form-check-label" htmlFor="sim">
+              SIM
+            </label>
+          </div>
+
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="passport"
+              type="radio"
+              onChange={() => checkedIsKartuIdentitas("passport")}
+              checked={isKartuIdentitas === "passport"}
+            />
+            <label className="form-check-label" htmlFor="passport">
+              Passport
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="kitas"
+              type="radio"
+              onChange={() => checkedIsKartuIdentitas("kitas")}
+              checked={isKartuIdentitas === "kitas"}
+            />
+            <label className="form-check-label" htmlFor="kitas">
+              KITAS
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="kia"
+              type="radio"
+              onChange={() => checkedIsKartuIdentitas("kia")}
+              checked={isKartuIdentitas === "kia"}
+            />
+            <label className="form-check-label" htmlFor="kia">
+              KIA
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="lainnya"
+              type="radio"
+              onChange={() => checkedIsKartuIdentitas("lainnya")}
+              checked={isKartuIdentitas === "lainnya"}
+            />
+            <label className="form-check-label" htmlFor="lainnya">
+              Lainnya
+            </label>
+          </div>
+          {isKartuIdentitas === "lainnya" ? (
+            <input type="text" className="form-control" />
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">
+            Peserta memiliki Asuransi Swasta lainnya, selain PT. International
+            Services Pacific Cross{" "}
+          </label>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onChange={checkhedIsAsuransi}
+              checked={isAsuransi}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              YA
+            </label>
+          </div>
+          {isAsuransi === true ? (
+            <input type="text" className="form-control" />
+          ) : (
+            ""
+          )}
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="bukan-kecelakaan"
+              type="radio"
+              onChange={checkhedIsAsuransi}
+              checked={!isAsuransi}
+            />
+            <label className="form-check-label" htmlFor="bukan-kecelakaan">
+              Tidak
+            </label>
           </div>
         </div>
       </div>
