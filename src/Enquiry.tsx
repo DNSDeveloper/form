@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { canHaveModifiers } from "typescript";
+import EnquiryForm from "./EnquiryForm";
 
 function Enquiry() {
   const [choice, setChoice] = useState<
@@ -29,6 +30,7 @@ function Enquiry() {
 
   return (
     <div>
+      <EnquiryForm/>
       <div className="container-fluid">
         <div className="card mb-5 mt-5">
           <div className="card-header">Enquiry Member</div>
